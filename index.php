@@ -35,7 +35,7 @@
             <div class="contenedor__login-register">
                 <!--Login-->
                 <form action="php/login_usuario.php" method="POST" class="formulario__login">
-                    <h2>Iniciar Sesión</h2> 
+                    <h2>Sing In</h2> 
                     <input type="text" placeholder="Correo Electronico" name="correo" required>
                     <input type="password" placeholder="Contraseña" name="contrasena" required>
                     <button>Entrar</button>
