@@ -42,7 +42,7 @@ jobs:
         uses: actions/checkout@v2
       - name: Verificar contenido de session_start()
         run: |
-          if grep -q "session_start()" bienvenida.php; then
+          if grep -q "session_start()" Login-register; then
             echo "El contenido de session_start() está presente en el archivo."
           else
             echo "El contenido de session_start() no está presente en el archivo."
