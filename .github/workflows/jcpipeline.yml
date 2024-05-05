@@ -20,18 +20,29 @@ jobs:
   check_environment:
     runs-on: ubuntu-latest
     steps:
-      - name: Check Environment Variables in PHP code
+      - name: Check Environment Variables Access in PHP code
         uses: actions/checkout@v2
-      - name: Install grep
-        run: sudo apt-get install grep
-      - name: Check for Environment Variables in PHP code
+      - name: Install PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.0'
+      - name: Install Composer
         run: |
-          if grep -q '\$_ENV\[' conexion.php; then
-            echo "Environment variables found in PHP code."
-          else
-            echo "No environment variables found in PHP code."
-            exit 1
-          fi
+          php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+          php composer-setup.php --filename=composer --install-dir=/usr/local/bin
+          php -r "unlink('composer-setup.php');"
+      - name: Install dependencies
+        run: composer install
+      - name: Check Environment Variable Access in PHP
+        run: |
+          php -r "
+            if (!getenv('DB_HOST') || !getenv('DB_USER') || !getenv('DB_PASSWORD') || !getenv('DB_NAME')) {
+              echo 'One or more required environment variables are missing or empty.';
+              exit(1);
+            } else {
+              echo 'All required environment variables are set.';
+            }
+          "
 
   deploy:
     runs-on: ubuntu-latest
