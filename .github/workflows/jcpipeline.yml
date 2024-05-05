@@ -28,7 +28,7 @@ jobs:
           php-version: '8.0'
       - name: Check Environment Variable Access in PHP
         run: |
-          if [ -z "$DB_HOST" ] || [ -z "$DB_USER" ] || [ -z "$DB_PASSWORD" ] || [ -z "$DB_NAME" ]; then
+          if [ -z "DB_HOST" ] || [ -z "DB_USER" ] || [ -z "DB_PASSWORD" ] || [ -z "DB_NAME" ]; then
             echo "One or more required environment variables are missing or empty."
             exit 1
           else
@@ -42,7 +42,7 @@ jobs:
         uses: actions/checkout@v2
       - name: Verificar contenido de session_start()
         run: |
-          if grep -q "session_start()" AppLoginRegister; then
+          if grep -q "session_deploy()" cerrar_sesion.php; then
             echo "El contenido de session_start() está presente en el archivo."
           else
             echo "El contenido de session_start() no está presente en el archivo."
