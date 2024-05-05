@@ -28,7 +28,7 @@ jobs:
           php-version: '8.0'
       - name: Check Environment Variable Access in PHP
         run: |
-          if [ -z "$DB_HOST" ] || [ -z "$DB_USER" ] || [ -z "$DB_PASSWORD" ] || [ -z "$DB_NAME" ]; then
+          if [ -z "$host" ] || [ -z "$username" ] || [ -z "$password" ] || [ -z "$database" ]; then
             echo "One or more required environment variables are missing or empty."
             exit 1
           else
