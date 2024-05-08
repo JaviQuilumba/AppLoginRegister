@@ -25,7 +25,7 @@ jobs:
         with:
           fetch-depth: 0  
   
-      - name: Install PHP and extensions (if needed)
+      - name: Install PHP and extensions
         uses: shivammathur/setup-php@v2  
         with:
           php-version: '7.4' 
