@@ -13,20 +13,18 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
         with:
-          fetch-depth: 0
-      - uses: actions/setup-node@v2
-        with:
-          cache: 'npm'
-          node-version: '20.12.2'
+          php-version: '7.4'
       - name: Install dependencies
-        run: npm ci
+        run: composer install
       - name: Build
-        run: npm run build
-      - uses: actions/upload-artifact@v2
-        with:
-          name: dist
-          path: dist
+        run: php build-script.php
+      - name: Test
+        run: phpunit
+      - name: Deploy
+        run: php deploy-script.php
 
   deploy:
     runs-on: ubuntu-latest
