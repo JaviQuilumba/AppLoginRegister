@@ -9,6 +9,14 @@ on:
 
 jobs:
 
+  avoid_reduncy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Cancel Previous Redundant Builds
+        uses: styfle/cancel-workflow-action@0.9.1
+        with:
+          access_token: ${{ github.token }}
+
   build:
     runs-on: ubuntu-latest
     steps:
@@ -16,15 +24,9 @@ jobs:
       - name: Set up PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '7.4'
-      - name: Install dependencies
+          php-version: '8.0'
+      - name: Install composer dependencies
         run: composer install
-      - name: Build
-        run: php build-script.php
-      - name: Test
-        run: phpunit
-      - name: Deploy
-        run: php deploy-script.php
 
   deploy:
     runs-on: ubuntu-latest
